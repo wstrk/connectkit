@@ -1,1 +1,0 @@
-{"version":3,"file":"useIsMounted.js","sourceRoot":"","sources":["../../hooks/useIsMounted.tsx"],"names":[],"mappings":";;AAAA,iCAA4C;AAE5C,SAAwB,YAAY;IAClC,MAAM,CAAC,OAAO,EAAE,UAAU,CAAC,GAAG,IAAA,gBAAQ,EAAC,KAAK,CAAC,CAAC;IAC9C,IAAA,iBAAS,EAAC,GAAG,EAAE,CAAC,UAAU,CAAC,IAAI,CAAC,EAAE,EAAE,CAAC,CAAC;IACtC,OAAO,OAAO,CAAC;AACjB,CAAC;AAJD,+BAIC"}
