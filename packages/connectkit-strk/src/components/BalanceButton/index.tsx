@@ -6,7 +6,8 @@ import styled from './../../styles/styled';
 import { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { useAccount, useBalance, useBlockNumber } from 'wagmi';
+// import { useAccount, useBalance, useBlockNumber } from 'wagmi';
+import { useAccount, useBalance, useBlockNumber } from '@starknet-react/core';
 import useIsMounted from '../../hooks/useIsMounted';
 
 import Chain from '../Common/Chain';
@@ -15,6 +16,7 @@ import ThemedButton from '../Common/ThemedButton';
 import { nFormatter } from '../../utils';
 import { useChains } from '../../hooks/useChains';
 import { useChainIsSupported } from '../../hooks/useChainIsSupported';
+import { useStarknet } from '@starknet-react/core/src/context/starknet';
 
 const Container = styled(motion.div)`
   display: flex;
@@ -51,22 +53,24 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
   const isMounted = useIsMounted();
   const [isInitial, setIsInitial] = useState(true);
 
-  const { address, chain } = useAccount();
+  const { address } = useAccount();
+  const { chain } = useStarknet();
   const chains = useChains();
-  const isChainSupported = useChainIsSupported(chain?.id);
+  const isChainSupported = useChainIsSupported(Number(chain?.id));
 
   const queryClient = useQueryClient();
-  const { data: blockNumber } = useBlockNumber({ watch: true });
-  const { data: balance, queryKey } = useBalance({
+  // const { data: blockNumber } = useBlockNumber({  watch: true });
+  const { data: blockNumber } = useBlockNumber();
+  const { data: balance } = useBalance({
     address,
-    chainId: chain?.id,
+    // chainId: chain?.id,
   });
 
-  useEffect(() => {
-    if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey });
-  }, [blockNumber, queryKey]);
+  // useEffect(() => {
+  //   if (blockNumber ?? 0 % 5 === 0) queryClient.invalidateQueries({ queryKey });
+  // }, [blockNumber, queryKey]);
 
-  const currentChain = chainConfigs.find((c) => c.id === chain?.id);
+  const currentChain = chainConfigs.find((c) => c.id === Number(chain?.id));
   const state = `${
     !isMounted || balance?.formatted === undefined
       ? `balance-loading`
@@ -105,7 +109,7 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
         >
           {!address || !isMounted || balance?.formatted === undefined ? (
             <Container>
-              {!hideIcon && <Chain id={chain?.id} />}
+              {!hideIcon && <Chain id={Number(chain?.id)} />}
               <span style={{ minWidth: 32 }}>
                 <PulseContainer>
                   <span style={{ animationDelay: '0ms' }} />
@@ -116,12 +120,14 @@ export const Balance: React.FC<BalanceProps> = ({ hideIcon, hideSymbol }) => {
             </Container>
           ) : !isChainSupported ? (
             <Container>
-              {!hideIcon && <Chain id={chain?.id} />}
+              {!hideIcon && <Chain id={Number(chain?.id)} />}
+              {/* {!hideIcon && <Chain id={chain?.id} />} */}
               <span style={{ minWidth: 32 }}>???</span>
             </Container>
           ) : (
             <Container>
-              {!hideIcon && <Chain id={chain?.id} />}
+              {!hideIcon && <Chain id={Number(chain?.id)} />}
+              {/* {!hideIcon && <Chain id={chain?.id} />} */}
               <span style={{ minWidth: 32 }}>
                 {nFormatter(Number(balance?.formatted))}
               </span>
