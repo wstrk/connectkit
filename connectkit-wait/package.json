@@ -1,0 +1,56 @@
+{
+  "name": "connectkit",
+  "type": "module",
+  "main": "./_cjs/index.js",
+  "module": "./_esm/index.js",
+  "types": "./_types/index.d.ts",
+  "typings": "./_types/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./_types/index.d.ts",
+      "import": "./_esm/index.js",
+      "default": "./_cjs/index.js"
+    },
+    "./hooks": {
+      "types": "./_types/hooks/index.d.ts",
+      "import": "./_esm/hooks/index.js",
+      "default": "./_cjs/hooks/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf src/_esm src/_cjs src/_types",
+    "build": "bun run clean && bun run build:cjs && bun run build:esm && bun run build:types",
+    "build:cjs": "tsc --project ./tsconfig.build.json --module commonjs --outDir ./src/_cjs --removeComments --verbatimModuleSyntax false && printf '{\"type\":\"commonjs\"}' > ./src/_cjs/package.json",
+    "build:esm": "tsc --project ./tsconfig.build.json --module es2015 --outDir ./src/_esm && printf '{\"type\": \"module\",\"sideEffects\":false}' > ./src/_esm/package.json",
+    "build:types": "tsc --project ./tsconfig.build.json --module esnext --declarationDir ./src/_types --emitDeclarationOnly --declaration --declarationMap"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "buffer": "^6.0.3",
+    "detect-browser": "^5.3.0",
+    "framer-motion": "^6.3.11",
+    "qrcode": "^1.5.0",
+    "react-transition-state": "^1.1.4",
+    "react-use-measure": "^2.1.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "styled-components": "^5.3.5",
+    "@types/node": "18.7.18",
+    "@types/qrcode": "^1.4.2",
+    "@types/react": "^18.0.6",
+    "@types/react-dom": "^18.0.2",
+    "@types/styled-components": "^5.1.25",
+    "typescript": "^5.0.4",
+    "rimraf": "^4.4.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0",
+    "@tanstack/react-query": ">=5.0.0",
+    "react": "17.x || 18.x",
+    "react-dom": "17.x || 18.x"
+  },
+  "resolutions": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}
