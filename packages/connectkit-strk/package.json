@@ -1,6 +1,6 @@
 {
   "name": "connectkit-strk",
-  "version": "1.7.1",
+  "version": "0.0.1",
   "author": "Wise Mr Musa",
   "homepage": "https://docs.family.co/connectkit",
   "license": "BSD-2-Clause license",
@@ -52,9 +52,7 @@
   "peerDependencies": {
     "@tanstack/react-query": ">=5.0.0",
     "react": "17.x || 18.x",
-    "react-dom": "17.x || 18.x",
-    "viem": "2.x",
-    "wagmi": "2.x"
+    "react-dom": "17.x || 18.x"
   },
   "devDependencies": {
     "@types/node": "18.7.18",
@@ -66,8 +64,6 @@
   },
   "resolutions": {
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "viem": "^2.0.6",
-    "wagmi": "^2.2.1"
+    "react-dom": "^18.0.0"
   }
 }
