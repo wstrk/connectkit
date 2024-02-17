@@ -1,8 +1,11 @@
 import { Chain } from 'viem';
-import { useConfig } from 'wagmi';
 
+import { useStarknet } from '@starknet-react/core/src/context/starknet'
+
+
+// TODO: Chain API should be made uniform
 export function useChains() {
-  const wagmi = useConfig();
-  const chains = wagmi?.chains ?? [];
-  return chains.map((c) => c) as Chain[];
+  const { chains } = useStarknet();
+  const strkChains = chains ?? [];
+  return strkChains.map((c) => c) as unknown as Chain[];
 }

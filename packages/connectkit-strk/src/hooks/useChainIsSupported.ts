@@ -1,4 +1,3 @@
-import { useConfig } from 'wagmi';
 import { useStarknet } from '@starknet-react/core/src/context/starknet'
 
 export function useChainIsSupported(chainId?: number): boolean | null {

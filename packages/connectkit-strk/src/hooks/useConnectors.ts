@@ -1,7 +1,8 @@
 import { type Connector, useConnectors as useWagmiConnectors } from 'wagmi';
 
+import { useStarknet } from '@starknet-react/core/src/context/starknet';
 export function useConnectors() {
-  const connectors = useWagmiConnectors();
+  const connectors = useStarknet().connectors;
   return connectors ?? [];
 }
 

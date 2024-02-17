@@ -3,19 +3,23 @@
  * additional functionality.
  */
 
-import {
-  type UseConnectParameters,
-  useConnect as wagmiUseConnect,
-  CreateConnectorFn,
-  Connector,
-} from 'wagmi';
+// import {
+//   type UseConnectParameters,
+//   useConnect as wagmiUseConnect,
+//   CreateConnectorFn,
+//   Connector,
+// } from 'wagmi';
+
 import { useContext } from '../components/ConnectKit';
 import { useLastConnector } from './useLastConnector';
+import { useConnect as starknetUseConnect } from '@starknet-react/core';
 
-export function useConnect({ ...props }: UseConnectParameters = {}) {
+// export function useConnect({ ...props }: UseConnectParameters = {}) {
+export function useConnect({ ...props }: any = {}) {
   const context = useContext();
 
-  const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
+  // const { connect, connectAsync, connectors, ...rest } = wagmiUseConnect({
+  const { connect, connectAsync, connectors, ...rest } = starknetUseConnect({
     ...props,
     mutation: {
       ...props.mutation,
@@ -37,16 +41,18 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
       chainId,
       mutation,
     }: {
-      connector: CreateConnectorFn | Connector;
+      // connector: CreateConnectorFn | Connector;
+      connector: any;
       chainId?: number;
-      mutation?: UseConnectParameters['mutation'];
+      // mutation?: UseConnectParameters['mutation'];
+      mutation?: any;
     }) => {
       return connect(
         {
           connector,
-          chainId: chainId ?? context.options?.initialChainId,
+          // chainId: chainId ?? context.options?.initialChainId,
         },
-        mutation
+        // mutation
       );
     },
     connectAsync: async ({
@@ -54,16 +60,18 @@ export function useConnect({ ...props }: UseConnectParameters = {}) {
       chainId,
       mutation,
     }: {
-      connector: CreateConnectorFn | Connector;
+      // connector: CreateConnectorFn | Connector;
+      connector: any;
       chainId?: number;
-      mutation?: UseConnectParameters['mutation'];
+      // mutation?: UseConnectParameters['mutation'];
+      mutation?: any;
     }) => {
       return connectAsync(
         {
           connector,
-          chainId: chainId ?? context.options?.initialChainId,
+          // chainId: chainId ?? context.options?.initialChainId,
         },
-        mutation
+        // mutation
       );
     },
     connectors,

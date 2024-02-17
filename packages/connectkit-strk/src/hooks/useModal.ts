@@ -1,10 +1,12 @@
-import { useAccount } from 'wagmi';
+// import { useAccount } from 'wagmi';
 import { routes, useContext } from '../components/ConnectKit';
 import { useSIWE } from '../siwe';
 import {
   useConnectCallback,
   useConnectCallbackProps,
 } from './useConnectCallback';
+
+import { useAccount } from '@starknet-react/core';
 
 type ModalRoutes = (typeof routes)[keyof typeof routes];
 

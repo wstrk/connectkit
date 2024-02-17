@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useConfig } from 'wagmi';
+import { useStarknet } from '@starknet-react/core/src/context/starknet';
+
+//TODO: Make storage part of the state of the starknet
 
 export const useLastConnector = () => {
   const { storage } = useConfig();
