@@ -9,7 +9,6 @@
     "examples/*"
   ],
   "scripts": {
-    "dev:connectkit-strk": "yarn workspace connectkit-strk run dev",
     "dev:connectkit": "yarn workspace connectkit run dev",
     "dev:connectkit-next-siwe": "yarn workspace connectkit-next-siwe run dev",
     "dev:cra": "yarn workspace cra run dev",

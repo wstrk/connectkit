@@ -27,7 +27,10 @@ import {
 } from '../hooks/useConnectCallback';
 import { isFamily } from '../utils/wallets';
 import { useConnector } from '../hooks/useConnectors';
-import { WagmiContext, useAccount } from 'wagmi';
+//TODO: we don't need wagmi
+import { WagmiContext as SomethingElse, useAccount as wagmiUseAccount } from 'wagmi';
+import { useStarknet } from "@starknet-react/core/src/context/starknet.js";
+import { useAccount } from '@starknet-react/core';
 import { Web3ContextProvider } from './contexts/web3';
 import { useChainIsSupported } from '../hooks/useChainIsSupported';
 
@@ -118,10 +121,18 @@ export const ConnectKitProvider = ({
   onDisconnect,
   debugMode = false,
 }: ConnectKitProviderProps) => {
-  // ConnectKitProvider must be within a WagmiProvider
-  if (!React.useContext(WagmiContext)) {
-    throw Error('ConnectKitProvider must be within a WagmiProvider');
+
+  // ConnectKitProvider must be within a StarknetProvider
+
+  if(useStarknet()){
+    throw Error('ConnectKitProvider must be within a StarketProvider');
   }
+
+  
+  // ConnectKitProvider must be within a WagmiProvider
+  // if (!React.useContext(WagmiContext)) {
+  //   throw Error('ConnectKitProvider must be within a WagmiProvider');
+  // }
 
   // Only allow for mounting ConnectKitProvider once, so we avoid weird global
   // state collisions.
@@ -202,8 +213,12 @@ export const ConnectKitProvider = ({
   useEffect(() => setErrorMessage(null), [route, open]);
 
   // Check if chain is supported, elsewise redirect to switches page
-  const { chain, isConnected } = useAccount();
-  const isChainSupported = useChainIsSupported(chain?.id);
+
+  //TODO: This will split 
+  // const { chain, isConnected } = useAccount();
+  const { isConnected } = useAccount();
+  const { chain } = useStarknet();
+  const isChainSupported = useChainIsSupported(Number(chain?.id));
 
   useEffect(() => {
     if (isConnected && opts.enforceSupportedChains && !isChainSupported) {
@@ -275,6 +290,7 @@ export const ConnectKitProvider = ({
 
 export const useContext = () => {
   const context = React.useContext(Context);
+  // TODO: make the error throw again
   if (!context) throw Error('ConnectKit Hook must be inside a Provider.');
   return context;
 };
